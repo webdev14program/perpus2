@@ -107,4 +107,75 @@ class Dashboard extends CI_Controller
         </div>');
         redirect('Dashboard/anggota');
     }
+
+    public function kategori_buku()
+    {
+        $isi['kategori'] = $this->Model_kategori->dataKategori();
+        $isi['content'] = 'tampilan_kategori_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function hapus_all_kategori()
+    {
+        $this->db->empty_table('kategori');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Semua kategori Berhasil Di Hapus</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/kategori_buku');
+    }
+
+    public function simpan_kategori()
+    {
+        $id_kategori = rand(11111111, 99999999);
+        $kategori = $this->input->post('kategori');
+        $keterangan = $this->input->post('keterangan');
+        $data = array(
+            'id_kategori' => $id_kategori,
+            'kategori' => $kategori,
+            'keterangan' => $keterangan,
+        );
+        $this->db->insert('kategori', $data);
+
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Kategori Berhasil Di Simpan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/kategori_buku');
+    }
+
+    public function hapus_kategori($id_kategori)
+    {
+
+        $this->db->where('id_kategori', $id_kategori);
+        $this->db->delete('kategori');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Kategori Berhasil Di Hupus Berdasarkan ID</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/kategori_buku');
+    }
 }

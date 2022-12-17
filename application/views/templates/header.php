@@ -64,9 +64,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white  py-2 collapse-inner rounded">
                         <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/anggota">Anggota</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="cards.html">Kategori</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="cards.html">Penerbit</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="cards.html">Rak</a> <a class="collapse-item text-primary font-weight-bold" href="buttons.html">Buku</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/kategori_buku">Kategori</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/penerbit">Penerbit</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/rak">Rak</a> <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/anggota">Buku</a>
                     </div>
                 </div>
             </li>
