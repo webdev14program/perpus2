@@ -7,6 +7,12 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $isi['anggota'] = $this->Model_anggota->countAngota();
+        $isi['buku'] = $this->Model_buku->countBuku();
+        $isi['penerbit'] = $this->Model_penerbit->countPenerbit();
+        $isi['kategori'] = $this->Model_kategori->countKategori();
+        $isi['pengadaan'] = $this->Model_pengadaan->countPengadaan();
+        $isi['pinjam'] = $this->Model_pinjam->countPinjam();
+        $isi['rak'] = $this->Model_rak->countRak();
         $isi['content'] = 'tampilan_home';
         $this->load->view('templates/header');
         $this->load->view('tampilan_dashboard', $isi);
@@ -177,5 +183,250 @@ class Dashboard extends CI_Controller
         </div>
         </div>');
         redirect('Dashboard/kategori_buku');
+    }
+
+    public function penerbit()
+    {
+        $isi['penerbit'] = $this->Model_penerbit->dataPenerbit();
+        $isi['content'] = 'tampilan_penerbit';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+
+    public function hapus_all_penerbit()
+    {
+        $this->db->empty_table('penerbit');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Semua Penerbit Berhasil Di Hapus</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/penerbit');
+    }
+
+    public function simpan_penerbit()
+    {
+        $id_penerbit = rand(11111111, 99999999);
+        $penerbit = $this->input->post('penerbit');
+        $keterangan = $this->input->post('keterangan');
+        $data = array(
+            'id_penerbit' => $id_penerbit,
+            'penerbit' => $penerbit,
+            'keterangan' => $keterangan,
+        );
+        $this->db->insert('penerbit', $data);
+
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Penerbit Berhasil Di Simpan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/penerbit');
+    }
+
+    public function hapus_penerbit($id_penerbit)
+    {
+
+        $this->db->where('id_penerbit', $id_penerbit);
+        $this->db->delete('penerbit');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Penerbit Berhasil Di Hupus Berdasarkan ID</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/penerbit');
+    }
+
+    public function rak()
+    {
+        $isi['rak'] = $this->Model_rak->dataRak();
+        $isi['content'] = 'tampilan_rak';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function hapus_all_rak()
+    {
+        $this->db->empty_table('rak');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Semua RAK Berhasil Di Hapus</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/rak');
+    }
+
+    public function simpan_rak()
+    {
+        $id_rak = rand(11111111, 99999999);
+        $rak = $this->input->post('rak');
+        $keterangan = $this->input->post('keterangan');
+        $data = array(
+            'id_rak' => $id_rak,
+            'rak' => $rak,
+            'keterangan' => $keterangan,
+        );
+        $this->db->insert('rak', $data);
+
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data RAK Berhasil Di Simpan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/rak');
+    }
+
+    public function hapus_rak($id_rak)
+    {
+
+        $this->db->where('id_rak', $id_rak);
+        $this->db->delete('rak');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data RAK Berhasil Di Hupus Berdasarkan ID</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/rak');
+    }
+
+    public function buku()
+    {
+        $isi['kategori'] = $this->Model_kategori->dataKategori();
+        $isi['rak'] = $this->Model_rak->dataRak();
+        $isi['penerbit'] = $this->Model_penerbit->dataPenerbit();
+        $isi['buku'] = $this->Model_buku->dataBuku();
+        $isi['content'] = 'Buku/tampilan_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function simpan_buku()
+    {
+        $id_buku = rand(11111111, 99999999);
+        $id_kategori = $this->input->post('id_kategori');
+        $id_penerbit = $this->input->post('id_penerbit');
+        $id_rak = $this->input->post('id_rak');
+        $judul = $this->input->post('judul');
+        $pengarang = $this->input->post('pengarang');
+        $isbn = $this->input->post('isbn');
+        $jmlhal = $this->input->post('jmlhal');
+        $jmlbuku = $this->input->post('jmlbuku');
+        $tahun = $this->input->post('tahun');
+        $sinopsis = $this->input->post('sinopsi');
+        $foto = 'book.png';
+        $data = array(
+            'id_buku' => $id_buku,
+            'id_kategori' => $id_kategori,
+            'id_penerbit' => $id_penerbit,
+            'id_rak' => $id_rak,
+            'judul' => $judul,
+            'pengarang' => $pengarang,
+            'isbn' => $isbn,
+            'jmlhal' => $jmlhal,
+            'jmlbuku' => $jmlbuku,
+            'tahun' => $tahun,
+            'sinopsis' => $sinopsis,
+            'foto' => $foto,
+
+        );
+        $this->db->insert('buku', $data);
+
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Buku Berhasil Di Simpan</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/buku');
+    }
+
+    public function hapus_all_buku()
+    {
+        $this->db->empty_table('buku');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Semua Buku Berhasil Di Hapus</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/buku');
+    }
+
+    public function hapus_buku($id_buku)
+    {
+
+        $this->db->where('id_buku', $id_buku);
+        $this->db->delete('buku');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Buku Berhasil Di Hupus Berdasarkan ID</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/buku');
+    }
+
+    public function detail_buku($id_buku)
+    {
+        $isi['buku'] = $this->Model_buku->detailBuku($id_buku);
+        $isi['content'] = 'Buku/tampilan_detail_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
     }
 }

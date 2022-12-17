@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_kategori extends CI_Model
+class Model_penerbit extends CI_Model
 {
 
-    public function countKategori()
+    public function countPenerbit()
     {
-        $sql = "SELECT COUNT(*) AS jumlah_kategori FROM `kategori`;";
+        $sql = "SELECT count(*) AS jumlah_penerbit FROM `penerbit`;";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
 
-    public function dataKategori()
+    public function dataPenerbit()
     {
-        $sql = "SELECT * FROM `kategori`";
+        $sql = "SELECT * FROM `penerbit`";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
