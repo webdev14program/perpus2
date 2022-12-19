@@ -17,4 +17,13 @@ class Model_penerbit extends CI_Model
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    function simpan_penerbit($data = array())
+    {
+        $jumlah = count($data);
+
+        if ($jumlah > 0) {
+            $this->db->insert_batch('penerbit', $data);
+        }
+    }
 }

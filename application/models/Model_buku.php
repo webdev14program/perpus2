@@ -13,7 +13,7 @@ class Model_buku extends CI_Model
 
     public function dataBuku()
     {
-        $sql = "SELECT buku.id_buku,buku.id_kategori,buku.id_penerbit,buku.id_rak, buku.judul, penerbit.penerbit,buku.jmlbuku,kategori.kategori,rak.rak FROM `buku`
+        $sql = "SELECT buku.id_buku,buku.id_kategori,penerbit.penerbit,buku.id_rak, buku.judul, penerbit.penerbit,buku.jmlbuku,kategori.kategori,rak.rak FROM `buku`
                 INNER JOIN kategori
                 ON buku.id_kategori=kategori.id_kategori
                 INNER JOIN penerbit

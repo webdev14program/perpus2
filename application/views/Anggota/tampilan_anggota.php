@@ -11,8 +11,11 @@
     <div class="col-md mt-2">
         <div class="card">
             <div class="card-body">
-                <button type="button" class="btn btn-primary btn-sm text-uppercase font-weight-bold" data-toggle="modal" data-target="#upload">
+                <button type="button" class="btn btn-primary btn-sm text-uppercase font-weight-bold" data-toggle="modal" data-target="#tambah">
                     <i class="fas fa-plus-square"></i> Tambah Anggota
+                </button>
+                <button type="button" class="btn btn-success btn-sm text-uppercase font-weight-bold" data-toggle="modal" data-target="#upload">
+                    <i class="fas fa-plus-square"></i> Upload Anggota
                 </button>
                 <a class="btn btn-danger btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/hapus_all_anggota"><i class="fas fa-trash"></i> Hapus all anggota</a>
             </div>
@@ -62,7 +65,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -114,6 +117,27 @@
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
                 <?php echo form_close() ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="upload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-uppercase  font-weight-bold text-white" id="exampleModalLabel">Upload Anggota</h5>
+            </div>
+            <div class="modal-body">
+                <?= form_open_multipart('Dashboard/upload_anggota'); ?>
+                <div class="form-group">
+                    <input type="file" name="excel" class="form-control-file" name="file" required accept=".xlsx">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name="submit" value="upload" class="btn btn-primary">Upload</button>
+                </div>
+                <?= form_close(); ?>
             </div>
         </div>
     </div>

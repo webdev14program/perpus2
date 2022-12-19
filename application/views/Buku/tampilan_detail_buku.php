@@ -12,6 +12,17 @@
                 <h5 class="h4 text-gray-800 text-center">Waktu Daftar <br>
                     <?= $buku['date'] ?>
                 </h5>
+                <hr class="sidebar-divider">
+
+                <div class="form-group"><label>Kategori</label>
+                    <h4 class="h4 text-gray-800"><?= $buku['kategori'] ?></h4>
+                </div>
+                <hr class="sidebar-divider">
+
+                <!-- Jenis Kelamin -->
+                <div class="form-group"><label>Rak</label>
+                    <h4 class="h4 text-gray-800"><?= $buku['rak'] ?></h4>
+                </div>
             </div>
         </div>
     </div>
@@ -33,13 +44,8 @@
                     <h4 class="h4 text-gray-800"><?= $buku['judul'] ?></h4>
                 </div>
 
-                <!-- Divider -->
-                <hr class="sidebar-divider">
 
-                <!-- NoTelepon -->
-                <div class="form-group"><label>Kategori</label>
-                    <h4 class="h4 text-gray-800"><?= $buku['kategori'] ?></h4>
-                </div>
+
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
@@ -88,13 +94,6 @@
                 <!-- Jenis Kelamin -->
                 <div class="form-group"><label>Penerbit</label>
                     <h4 class="h4 text-gray-800"><?= $buku['penerbit'] ?></h4>
-                </div>
-
-                <hr class="sidebar-divider">
-
-                <!-- Jenis Kelamin -->
-                <div class="form-group"><label>Rak</label>
-                    <h4 class="h4 text-gray-800"><?= $buku['rak'] ?></h4>
                 </div>
             </div>
         </div>

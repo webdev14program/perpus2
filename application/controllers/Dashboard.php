@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require_once APPPATH . 'third_party/spout/src/Spout/Autoloader/autoload.php';
+
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+
+
 class Dashboard extends CI_Controller
 {
 
@@ -43,6 +48,74 @@ class Dashboard extends CI_Controller
         </div>
         </div>');
         redirect('Dashboard/anggota');
+    }
+
+    public function upload_anggota()
+    {
+        if ($this->input->post('submit', TRUE) == 'upload') {
+            $config['upload_path']      = './temp_doc/';
+            $config['allowed_types']    = 'xlsx|xls';
+            $config['file_name']        = 'doc' . time();
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('excel')) {
+                $file   = $this->upload->data();
+
+                $reader = ReaderEntityFactory::createXLSXReader();
+                $reader->open('temp_doc/' . $file['file_name']);
+
+
+                foreach ($reader->getSheetIterator() as $sheet) {
+                    $numRow = 1;
+                    $save   = array();
+                    foreach ($sheet->getRowIterator() as $row) {
+
+                        if ($numRow > 1) {
+
+                            $cells = $row->getCells();
+
+                            // $data = array(
+                            //     'id_penerbit'              => $cells[0],
+                            //     'penerbit'     => $cells[1],
+                            //     'keterangan'            => $cells[2],
+                            // );
+
+                            $data = array(
+                                'id_anggota' => $cells[0],
+                                'nama_lengkap' => $cells[1],
+                                'notelp' => $cells[2],
+                                'jk' => $cells[3],
+                                'tempat' => $cells[4],
+                                'tgllahir' => $cells[5],
+                                'umur' => $cells[6],
+                                'alamat' => $cells[7],
+                                'foto' => $cells[8],
+                            );
+                            array_push($save, $data);
+                        }
+                        $numRow++;
+                    }
+                    $this->Model_anggota->simpan_anggota($save);
+                    $reader->close();
+                    unlink('temp_doc/' . $file['file_name']);
+                    $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Annggota Berhasil Di Upload</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+                    redirect('Dashboard/anggota');
+                }
+            } else {
+                echo "Error :" . $this->upload->display_errors();
+            }
+        }
     }
 
     public function simpan_anggota()
@@ -212,6 +285,62 @@ class Dashboard extends CI_Controller
         redirect('Dashboard/penerbit');
     }
 
+    public function upload_penerbit()
+    {
+        if ($this->input->post('submit', TRUE) == 'upload') {
+            $config['upload_path']      = './temp_doc/';
+            $config['allowed_types']    = 'xlsx|xls';
+            $config['file_name']        = 'doc' . time();
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('excel')) {
+                $file   = $this->upload->data();
+
+                $reader = ReaderEntityFactory::createXLSXReader();
+                $reader->open('temp_doc/' . $file['file_name']);
+
+
+                foreach ($reader->getSheetIterator() as $sheet) {
+                    $numRow = 1;
+                    $save   = array();
+                    foreach ($sheet->getRowIterator() as $row) {
+
+                        if ($numRow > 1) {
+
+                            $cells = $row->getCells();
+
+                            $data = array(
+                                'id_penerbit'              => $cells[0],
+                                'penerbit'     => $cells[1],
+                                'keterangan'            => $cells[2],
+                            );
+                            array_push($save, $data);
+                        }
+                        $numRow++;
+                    }
+                    $this->Model_penerbit->simpan_penerbit($save);
+                    $reader->close();
+                    unlink('temp_doc/' . $file['file_name']);
+                    $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Penerbit Berhasil Di Upload</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+                    redirect('Dashboard/penerbit');
+                }
+            } else {
+                echo "Error :" . $this->upload->display_errors();
+            }
+        }
+    }
+
     public function simpan_penerbit()
     {
         $id_penerbit = rand(11111111, 99999999);
@@ -343,6 +472,7 @@ class Dashboard extends CI_Controller
     public function simpan_buku()
     {
         $id_buku = rand(11111111, 99999999);
+        $id_penerbit = rand(11111111, 99999999);
         $id_kategori = $this->input->post('id_kategori');
         $id_penerbit = $this->input->post('id_penerbit');
         $id_rak = $this->input->post('id_rak');
@@ -352,7 +482,7 @@ class Dashboard extends CI_Controller
         $jmlhal = $this->input->post('jmlhal');
         $jmlbuku = $this->input->post('jmlbuku');
         $tahun = $this->input->post('tahun');
-        $sinopsis = $this->input->post('sinopsi');
+        $sinopsis = $this->input->post('sinopsis');
         $foto = 'book.png';
         $data = array(
             'id_buku' => $id_buku,
@@ -370,6 +500,13 @@ class Dashboard extends CI_Controller
 
         );
         $this->db->insert('buku', $data);
+
+        // $data_penerbit = array(
+        //     'id_penerbit' => $id_penerbit,
+        //     'penerbit' => $penerbit,
+        //     'keterangan' => $penerbit,
+        // );
+        // $this->db->insert('penerbit', $data_penerbit);
 
         $this->session->set_flashdata('pesan', '<div class="row">
         <div class="col-md mt-2">
@@ -428,5 +565,11 @@ class Dashboard extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('tampilan_dashboard', $isi);
         $this->load->view('templates/footer');
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('/');
     }
 }

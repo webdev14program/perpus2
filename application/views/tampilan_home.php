@@ -24,6 +24,9 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/anggota"> Detail</a></h5>
+            </div>
         </div>
     </div>
 
@@ -41,6 +44,9 @@
                         <i class="fas fa-book-openfa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/buku"> Detail</a></h5>
             </div>
         </div>
     </div>
@@ -64,6 +70,9 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="#"> Detail</a></h5>
+            </div>
         </div>
     </div>
 
@@ -81,6 +90,9 @@
                         <i class="fas fa-book-reader fa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="#"> Detail</a></h5>
             </div>
         </div>
     </div>
@@ -102,6 +114,9 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/penerbit"> Detail</a></h5>
+            </div>
         </div>
     </div>
 
@@ -119,6 +134,9 @@
                         <i class="fas fa-th-list fa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/kategori_buku"> Detail</a></h5>
             </div>
         </div>
     </div>
@@ -139,6 +157,9 @@
                         <i class="fas fa-layer-group fa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer text-muted">
+                <h5 class="text-center"><a class="btn btn-success btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/rak"> Detail</a></h5>
             </div>
         </div>
     </div>

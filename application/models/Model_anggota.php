@@ -25,4 +25,13 @@ WHERE id_anggota='$id_anggota';";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
+
+    function simpan_anggota($data = array())
+    {
+        $jumlah = count($data);
+
+        if ($jumlah > 0) {
+            $this->db->insert_batch('anggota', $data);
+        }
+    }
 }
