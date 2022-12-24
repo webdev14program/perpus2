@@ -239,6 +239,62 @@ class Dashboard extends CI_Controller
         redirect('Dashboard/kategori_buku');
     }
 
+    public function upload_kategori()
+    {
+        if ($this->input->post('submit', TRUE) == 'upload') {
+            $config['upload_path']      = './temp_doc/';
+            $config['allowed_types']    = 'xlsx|xls';
+            $config['file_name']        = 'doc' . time();
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('excel')) {
+                $file   = $this->upload->data();
+
+                $reader = ReaderEntityFactory::createXLSXReader();
+                $reader->open('temp_doc/' . $file['file_name']);
+
+
+                foreach ($reader->getSheetIterator() as $sheet) {
+                    $numRow = 1;
+                    $save   = array();
+                    foreach ($sheet->getRowIterator() as $row) {
+
+                        if ($numRow > 1) {
+
+                            $cells = $row->getCells();
+
+                            $data = array(
+                                'id_kategori'              => $cells[0],
+                                'kategori'     => $cells[1],
+                                'keterangan'            => $cells[2],
+                            );
+                            array_push($save, $data);
+                        }
+                        $numRow++;
+                    }
+                    $this->Model_kategori->simpan_katergori($save);
+                    $reader->close();
+                    unlink('temp_doc/' . $file['file_name']);
+                    $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data Kategori Berhasil Di Upload</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+                    redirect('Dashboard/kategori_buku');
+                }
+            } else {
+                echo "Error :" . $this->upload->display_errors();
+            }
+        }
+    }
+
     public function hapus_kategori($id_kategori)
     {
 
@@ -412,6 +468,62 @@ class Dashboard extends CI_Controller
         redirect('Dashboard/rak');
     }
 
+    public function upload_rak()
+    {
+        if ($this->input->post('submit', TRUE) == 'upload') {
+            $config['upload_path']      = './temp_doc/';
+            $config['allowed_types']    = 'xlsx|xls';
+            $config['file_name']        = 'doc' . time();
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('excel')) {
+                $file   = $this->upload->data();
+
+                $reader = ReaderEntityFactory::createXLSXReader();
+                $reader->open('temp_doc/' . $file['file_name']);
+
+
+                foreach ($reader->getSheetIterator() as $sheet) {
+                    $numRow = 1;
+                    $save   = array();
+                    foreach ($sheet->getRowIterator() as $row) {
+
+                        if ($numRow > 1) {
+
+                            $cells = $row->getCells();
+
+                            $data = array(
+                                'id_rak'              => $cells[0],
+                                'rak'     => $cells[1],
+                                'keterangan'            => $cells[2],
+                            );
+                            array_push($save, $data);
+                        }
+                        $numRow++;
+                    }
+                    $this->Model_rak->simpan_rak($save);
+                    $reader->close();
+                    unlink('temp_doc/' . $file['file_name']);
+                    $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Data RAK Berhasil Di Upload</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+                    redirect('Dashboard/rak');
+                }
+            } else {
+                echo "Error :" . $this->upload->display_errors();
+            }
+        }
+    }
+
     public function simpan_rak()
     {
         $id_rak = rand(11111111, 99999999);
@@ -562,6 +674,15 @@ class Dashboard extends CI_Controller
     {
         $isi['buku'] = $this->Model_buku->detailBuku($id_buku);
         $isi['content'] = 'Buku/tampilan_detail_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function pemimjam()
+    {
+        $isi['peminjam'] = $this->Model_anggota->dataPeminjam();
+        $isi['content'] = 'Anggota/tampilan_peminjam_buku';
         $this->load->view('templates/header');
         $this->load->view('tampilan_dashboard', $isi);
         $this->load->view('templates/footer');

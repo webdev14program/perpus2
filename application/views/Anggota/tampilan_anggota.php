@@ -84,7 +84,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jenis Kelamin</label>
                     <select class="form-control" name="jk">
-                        <option value="laki_laki">Laki-Laki</option>
+                        <option value="laki - laki">Laki-Laki</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
                 </div>
