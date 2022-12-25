@@ -37,4 +37,18 @@ class Model_pinjam extends CI_Model
         $query = $this->db->query($sql);
         return $query->row_array();
     }
+
+    public function dataBukuPinjam($id_anggota)
+    {
+        $sql = "SELECT peminjaman.id_pinjam,anggota.id_anggota,anggota.nama_lengkap, buku.judul,peminjaman.tgl_pinjam,peminjaman.tempo FROM `peminjaman`
+INNER JOIN anggota
+ON peminjaman.id_anggota=anggota.id_anggota
+INNER JOIN p_buku
+ON p_buku.id_pinjam=peminjaman.id_pinjam
+INNER JOIN buku
+ON p_buku.id_buku=buku.id_buku
+WHERE anggota.id_anggota='$id_anggota';";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 }

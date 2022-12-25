@@ -681,11 +681,80 @@ class Dashboard extends CI_Controller
 
     public function pemimjam()
     {
-        $isi['peminjam'] = $this->Model_anggota->dataPeminjam();
+        $isi['anggota'] = $this->Model_anggota->dataAngota();
         $isi['content'] = 'Anggota/tampilan_peminjam_buku';
         $this->load->view('templates/header');
         $this->load->view('tampilan_dashboard', $isi);
         $this->load->view('templates/footer');
+    }
+
+    public function detail_pemimjam($id_anggota)
+    {
+        $isi['anggota'] = $this->Model_anggota->detail_Angota($id_anggota);
+        $isi['tabel_buku'] = $this->Model_pinjam->dataBukuPinjam($id_anggota);
+        $isi['buku'] = $this->Model_buku->dataBuku();
+        $isi['content'] = 'Anggota/tampilan_detail_peminjam_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function simpan_peminjam()
+    {
+        $id_pinjam = rand(11111111, 99999999);
+        $id_anggota = $this->input->post('id_anggota');
+        $tgl_pinjam = $this->input->post('tgl_pinjam');
+        $tempo = $this->input->post('tempo');
+        $status = "pinjam";
+        $usr_input = "petugas";
+
+        // Pinjam Buku
+        $id_pbuku = rand(11111111, 99999999);
+        $id_buku = $this->input->post('id_buku');
+
+
+        $data = array(
+            'id_pinjam' => $id_pinjam,
+            'id_anggota' => $id_anggota,
+            'tgl_pinjam' => $tgl_pinjam,
+            'tempo' => $tempo,
+            'status' => $status,
+            'usr_input' => $usr_input,
+
+        );
+
+        $pinjam_buku = array(
+            'id_pbuku' => $id_pbuku,
+            'id_pinjam' => $id_pinjam,
+            'id_buku' => $id_buku,
+
+        );
+        $this->db->insert('peminjaman', $data);
+        $this->db->insert('p_buku', $pinjam_buku);
+
+        redirect('Dashboard/detail_pemimjam/' . $id_anggota);
+    }
+
+    public function hapus_peminjam_buku($id_pinjam)
+    {
+
+        $this->db->where('id_pinjam ', $id_pinjam);
+        $this->db->delete('peminjaman');
+
+        $this->db->where('id_pinjam ', $id_pinjam);
+        $this->db->delete('p_buku');
+        $this->session->set_flashdata('pesan', '<div class="row">
+        <div class="col-md mt-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Data Peminjam Buku  Berhasil Di Hupus Berdasarkan ID </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        </div>');
+        redirect('Dashboard/pemimjam');
     }
 
     public function logout()

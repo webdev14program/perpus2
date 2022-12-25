@@ -32,9 +32,8 @@
                         <th>#</th>
                         <th>ID anggota</th>
                         <th>Nama Lengkap</th>
-                        <th>No.Telpon</th>
                         <th>Jenis Kelamin</th>
-                        <th>Umur</th>
+                        <th>No.Telpon</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,9 +46,8 @@
                             <td class="text-center text-uppercase font-weight-bold"><?php echo $no++; ?></td>
                             <td class="text-center text-uppercase font-weight-bold"><?= $row['id_anggota']; ?></td>
                             <td class=" text-uppercase font-weight-bold"><?= $row['nama_lengkap']; ?></td>
-                            <td class=" text-uppercase font-weight-bold"><?= $row['notelp']; ?></td>
                             <td class=" text-uppercase font-weight-bold"><?= $row['jk']; ?></td>
-                            <td class=" text-uppercase font-weight-bold"><?= $row['umur']; ?> Tahun</td>
+                            <td class=" text-uppercase font-weight-bold"><?= $row['notelp']; ?></td>
                             <td>
                                 <h5 class="text-center">
                                     <a class="btn btn-primary btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/detail_anggota/<?= $row['id_anggota']; ?>"> <i class="fas fa-search"></i></a>

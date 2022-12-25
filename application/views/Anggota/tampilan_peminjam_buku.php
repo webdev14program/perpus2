@@ -7,7 +7,6 @@
         </div>
     </div>
 </div>
-
 <div class="card mt-2">
     <div class="card-body">
         <div class="table-responsive">
@@ -15,11 +14,10 @@
                 <thead>
                     <tr class="text-center text-uppercase font-weight-bold">
                         <th>#</th>
-                        <th>ID Peminjam</th>
+                        <th>ID anggota</th>
                         <th>Nama Lengkap</th>
-                        <th>Buku Pinjam</th>
-                        <th>Tanggal Pinjam</th>
-                        <th>Tanggal Tempo</th>
+                        <th>Jenis Kelamin</th>
+                        <th>No.Telpon</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -27,17 +25,16 @@
                     <tr>
                         <?php
                         $no = 1;
-                        foreach ($peminjam as $row) {
+                        foreach ($anggota as $row) {
                         ?>
                             <td class="text-center text-uppercase font-weight-bold"><?php echo $no++; ?></td>
-                            <td class="text-center text-uppercase font-weight-bold"><?= $row['id_pinjam']; ?></td>
+                            <td class="text-center text-uppercase font-weight-bold"><?= $row['id_anggota']; ?></td>
                             <td class=" text-uppercase font-weight-bold"><?= $row['nama_lengkap']; ?></td>
-                            <td class=" text-uppercase font-weight-bold"><?= $row['judul']; ?></td>
-                            <td class=" text-uppercase font-weight-bold"><?= $row['tgl_pinjam']; ?></td>
-                            <td class=" text-uppercase font-weight-bold"><?= $row['tempo']; ?></td>
+                            <td class=" text-uppercase font-weight-bold"><?= $row['jk']; ?></td>
+                            <td class=" text-uppercase font-weight-bold"><?= $row['notelp']; ?></td>
                             <td>
                                 <h5 class="text-center">
-                                    <a class="btn btn-primary btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/detail_anggota/<?= $row['id_anggota']; ?>"> <i class="fas fa-search"></i></a>
+                                    <a class="btn btn-primary btn-sm text-uppercase font-weight-bold" href="<?= base_url() ?>Dashboard/detail_pemimjam/<?= $row['id_anggota']; ?>"> <i class="fas fa-search"></i></a>
                                 </h5>
                             </td>
                     </tr>
