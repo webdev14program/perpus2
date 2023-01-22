@@ -789,6 +789,40 @@ class Dashboard extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    // LAPORAN
+    public function laporan_peminjamnan_buku()
+    {
+        $isi['laporan_pinjam'] = $this->Model_pinjam->pinjam_buku_perbulan_pertahun();
+        $isi['content'] = 'Laporan/laporan_pinjam_perbulan_pertahun';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function print_laporan_pinjam($bulan_tahun)
+    {
+        $isi['header'] = $this->Model_pinjam->header_buku_perbulan_pertahun($bulan_tahun);
+        $isi['pinjam'] = $this->Model_pinjam->laporan_buku_perbulan_pertahun($bulan_tahun);
+        $this->load->view('Laporan/print_pinjam_perbulan_pertahun', $isi);
+    }
+
+    public function laporan_pengembalian_buku()
+    {
+        $isi['laporan_kembali'] = $this->Model_pinjam->kembali_buku_perbulan_pertahun();
+        $isi['content'] = 'Laporan/laporan_kembali_perbulan_pertahun';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
+    }
+
+    public function print_laporan_kembali($bulan_tahun)
+    {
+        $isi['header'] = $this->Model_pinjam->header_buku_kembali_perbulan_pertahun($bulan_tahun);
+        $isi['kembali'] = $this->Model_pinjam->laporan_buku_kembali_perbulan_pertahun($bulan_tahun);
+        $this->load->view('Laporan/print_kembali_perbulan_pertahun', $isi);
+    }
+
+
     public function logout()
     {
         $this->session->sess_destroy();

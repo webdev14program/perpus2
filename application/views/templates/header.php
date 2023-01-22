@@ -89,11 +89,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-users"></i>
-                    <span>Data Pengguna</span></a>
-            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -111,9 +107,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Laporan</h6>
-                        <a class="collapse-item text-primary font-weight-bold" href="#">Pengadaan Buku</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="#">Peminjaman Buku</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="#">Pengembalian Buku</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/laporan_peminjamnan_buku">Peminjaman Buku</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/laporan_pengembalian_buku">Pengembalian Buku</a>
                     </div>
                 </div>
             </li>

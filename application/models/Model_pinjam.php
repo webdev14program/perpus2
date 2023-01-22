@@ -72,4 +72,68 @@ WHERE peminjaman.status='PINJAM';";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    public function pinjam_buku_perbulan_pertahun()
+    {
+        $sql = "SELECT monthname(peminjaman.timestamp) AS bulan, year(peminjaman.timestamp) AS tahun, COUNT(*) AS jumlah_pinjam,concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) AS bulan_tahun FROM `peminjaman`
+                WHERE status='PINJAM'
+                GROUP BY concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp) );";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function header_buku_perbulan_pertahun($bulan_tahun)
+    {
+        $sql = "SELECT monthname(peminjaman.timestamp) AS bulan, year(peminjaman.timestamp) AS tahun, COUNT(*) AS jumlah_pinjam,concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) AS bulan_tahun FROM `peminjaman`
+                WHERE status='PINJAM' AND concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) = '$bulan_tahun'
+                GROUP BY concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp) );";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function header_buku_kembali_perbulan_pertahun($bulan_tahun)
+    {
+        $sql = "SELECT monthname(peminjaman.timestamp) AS bulan, year(peminjaman.timestamp) AS tahun, COUNT(*) AS jumlah_pinjam,concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) AS bulan_tahun FROM `peminjaman`
+                WHERE status='KEMBALI' AND concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) = '$bulan_tahun'
+                GROUP BY concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp) );";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function laporan_buku_perbulan_pertahun($bulan_tahun)
+    {
+        $sql = "SELECT peminjaman.id_pinjam,anggota.id_anggota,anggota.nama_lengkap, buku.judul,peminjaman.tgl_pinjam,peminjaman.tempo,peminjaman.timestamp, peminjaman.status,peminjaman.usr_input FROM `peminjaman`
+                INNER JOIN anggota
+                ON peminjaman.id_anggota=anggota.id_anggota
+                INNER JOIN p_buku
+                ON p_buku.id_pinjam=peminjaman.id_pinjam
+                INNER JOIN buku
+                ON p_buku.id_buku=buku.id_buku
+              WHERE status='PINJAM' AND concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) = '$bulan_tahun';";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function kembali_buku_perbulan_pertahun()
+    {
+        $sql = "SELECT monthname(peminjaman.timestamp) AS bulan, year(peminjaman.timestamp) AS tahun, COUNT(*) AS jumlah_pinjam,concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) AS bulan_tahun FROM `peminjaman`
+                WHERE status='KEMBALI'
+                GROUP BY concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp) );";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function laporan_buku_kembali_perbulan_pertahun($bulan_tahun)
+    {
+        $sql = "SELECT peminjaman.id_pinjam,anggota.id_anggota,anggota.nama_lengkap, buku.judul,peminjaman.tgl_pinjam,peminjaman.tempo,peminjaman.timestamp, peminjaman.status,peminjaman.usr_input FROM `peminjaman`
+                INNER JOIN anggota
+                ON peminjaman.id_anggota=anggota.id_anggota
+                INNER JOIN p_buku
+                ON p_buku.id_pinjam=peminjaman.id_pinjam
+                INNER JOIN buku
+                ON p_buku.id_buku=buku.id_buku
+              WHERE status='KEMBALI' AND concat(monthname(peminjaman.timestamp) , year(peminjaman.timestamp)) = '$bulan_tahun';";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 }

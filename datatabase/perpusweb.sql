@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 25, 2022 at 03:06 PM
+-- Generation Time: Jan 22, 2023 at 12:17 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -1146,16 +1146,18 @@ CREATE TABLE `peminjaman` (
   `tgl_pinjam` date DEFAULT NULL,
   `tempo` date DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
-  `usr_input` varchar(30) DEFAULT NULL
+  `usr_input` varchar(30) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_pinjam`, `id_anggota`, `tgl_pinjam`, `tempo`, `status`, `usr_input`) VALUES
-('51642223', '15614979', '2022-12-25', '2022-12-25', 'pinjam', 'petugas'),
-('79818454', '18133087', '2022-12-25', '2022-12-25', 'pinjam', 'petugas');
+INSERT INTO `peminjaman` (`id_pinjam`, `id_anggota`, `tgl_pinjam`, `tempo`, `status`, `usr_input`, `timestamp`) VALUES
+('13534319', '10962678', '2023-01-22', '2023-02-05', 'PINJAM', 'PETUGAS', '2023-01-22 10:59:57'),
+('78735279', '10962678', '2023-01-22', '2023-01-29', 'KEMBALI', 'PETUGAS', '2023-01-22 11:03:20'),
+('94528914', '10945318', '2023-01-22', '2023-02-05', 'PINJAM', 'PETUGAS', '2023-01-22 11:03:04');
 
 -- --------------------------------------------------------
 
@@ -1250,15 +1252,6 @@ CREATE TABLE `pengembalian` (
   `id_admin` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `pengembalian`
---
-
-INSERT INTO `pengembalian` (`id_kembali`, `tgl_kembali`, `id_pinjam`, `terlambat`, `denda`, `id_admin`) VALUES
-(10, '2021-04-15', 'PJM0002', '-', '-', NULL),
-(12, '2021-04-20', 'PJM0016', '-', '-', NULL),
-(13, '2021-04-20', 'PJM0001', '2 hari', 'Rp.6000', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1302,8 +1295,9 @@ CREATE TABLE `p_buku` (
 --
 
 INSERT INTO `p_buku` (`id_pbuku`, `id_pinjam`, `id_buku`) VALUES
-(17292401, '79818454', '16931987'),
-(76660719, '51642223', '86571866');
+(43198655, '13534319', '86571866'),
+(47024950, '78735279', '16931987'),
+(86444509, '94528914', '16931987');
 
 -- --------------------------------------------------------
 
@@ -1404,13 +1398,13 @@ ALTER TABLE `auth`
 -- AUTO_INCREMENT for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id_kembali` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_kembali` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `p_buku`
 --
 ALTER TABLE `p_buku`
-  MODIFY `id_pbuku` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76660720;
+  MODIFY `id_pbuku` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86444510;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
