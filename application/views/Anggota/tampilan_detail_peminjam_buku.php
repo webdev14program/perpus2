@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 mb-2 mt-2">
+    <div class="col-sm-4 mb-2 mt-2">
         <div class="card ">
             <div class="card-header bg-primary">
                 <h5 class="text-center text-uppercase font-weight-bold text-white">foto</h5>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 mb-2 mt-2">
+    <div class="col-sm-8 mb-2 mt-2">
         <div class="card">
             <div class="card-header bg-primary">
                 <h5 class="text-center text-uppercase font-weight-bold text-white">Tabel Buku Pinjam</h5>
@@ -48,7 +48,7 @@
                                 <th>Judul Buku</th>
                                 <th>Tanggal Pinjam</th>
                                 <th>Tanggal Tempo</th>
-                                <th>Aksi</th>
+                                <th colspan="2">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,8 +62,18 @@
                                     <td class=" text-uppercase font-weight-bold"><?= $row['tgl_pinjam']; ?></td>
                                     <td class=" text-uppercase font-weight-bold"><?= $row['tempo']; ?></td>
                                     <td>
+                                        <h5 class="text-center"> <a class='btn btn-danger btn-sm text-uppercase font-weight-bold' href="<?= base_url() ?>Dashboard/hapus_peminjam_buku/<?= $row['id_pinjam']; ?>"><i class="fas fa-trash"></i></a>
+                                        </h5>
+                                    </td>
+                                    <td>
                                         <h5 class="text-center">
-                                            <a class='btn btn-danger btn-sm text-uppercase font-weight-bold' href="<?= base_url() ?>Dashboard/hapus_peminjam_buku/<?= $row['id_pinjam']; ?>">Hapus</a>
+                                            <form method="post" action="<?= base_url() ?>Dashboard/simpan_kembali/<?= $row['id_pinjam'] ?>">
+                                                <input type="text" class="form-control" name="id_pinjam" value="<?= $row['id_pinjam'] ?>" hidden>
+                                                <input type="text" class="form-control" value="<?= $row['id_anggota'] ?>" name="id_anggota" hidden>
+                                                <input type="text" class="form-control" value="<?= $row['tgl_pinjam'] ?>" name="tgl_pinjam" hidden>
+                                                <input type="text" class="form-control" value="<?= $row['tempo'] ?>" name="tempo" hidden>
+                                                <button type="submit" class="btn btn-primary btn-sm text-uppercase"><i class="fas fa-retweet"></i></button>
+                                            </form>
                                         </h5>
                                     </td>
                             </tr>

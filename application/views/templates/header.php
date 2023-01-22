@@ -85,7 +85,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/pemimjam">Peminjaman</a>
-                        <a class="collapse-item text-primary font-weight-bold" href="#">Pengembalian</a>
+                        <a class="collapse-item text-primary font-weight-bold" href="<?= base_url() ?>Dashboard/pengembalian">Pengembalian</a>
                     </div>
                 </div>
             </li>

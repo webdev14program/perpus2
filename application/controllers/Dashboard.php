@@ -705,8 +705,8 @@ class Dashboard extends CI_Controller
         $id_anggota = $this->input->post('id_anggota');
         $tgl_pinjam = $this->input->post('tgl_pinjam');
         $tempo = $this->input->post('tempo');
-        $status = "pinjam";
-        $usr_input = "petugas";
+        $status = "PINJAM";
+        $usr_input = "PETUGAS";
 
         // Pinjam Buku
         $id_pbuku = rand(11111111, 99999999);
@@ -735,10 +735,33 @@ class Dashboard extends CI_Controller
         redirect('Dashboard/detail_pemimjam/' . $id_anggota);
     }
 
+    public function simpan_kembali($id_pinjam)
+    {
+        $id_pinjam = $this->input->post('id_pinjam');
+        $id_anggota = $this->input->post('id_anggota');
+        $tgl_pinjam = $this->input->post('tgl_pinjam');
+        $tempo = $this->input->post('tempo');
+        $status = "KEMBALI";
+        $usr_input = "PETUGAS";
+
+        $data = array(
+            'id_pinjam' => $id_pinjam,
+            'id_anggota' => $id_anggota,
+            'tgl_pinjam' => $tgl_pinjam,
+            'tempo' => $tempo,
+            'status' => $status,
+            'usr_input' => $usr_input,
+        );
+
+        $this->db->where('id_pinjam', $id_pinjam);
+        $this->db->update('peminjaman', $data);
+        redirect('Dashboard/detail_pemimjam/' . $id_anggota);
+    }
+
     public function hapus_peminjam_buku($id_pinjam)
     {
 
-        $this->db->where('id_pinjam ', $id_pinjam);
+        $this->db->where('id_pinjam', $id_pinjam);
         $this->db->delete('peminjaman');
 
         $this->db->where('id_pinjam ', $id_pinjam);
@@ -755,6 +778,15 @@ class Dashboard extends CI_Controller
         </div>
         </div>');
         redirect('Dashboard/pemimjam');
+    }
+
+    public function pengembalian()
+    {
+        $isi['kembali'] = $this->Model_pinjam->dataBukuKembali();
+        $isi['content'] = 'Anggota/tampilan_pemnembalian_buku';
+        $this->load->view('templates/header');
+        $this->load->view('tampilan_dashboard', $isi);
+        $this->load->view('templates/footer');
     }
 
     public function logout()
